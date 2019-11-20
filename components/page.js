@@ -1,5 +1,5 @@
 import { ref, onMounted, h, onUnmounted } from "../vue.esm-browser.js";
-import Styl from "./styl.js";
+import Styl from "../utils/styl.js";
 
 const style = ({ landscape, height, width, margin }) => `
 @media screen {

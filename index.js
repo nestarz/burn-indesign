@@ -1,7 +1,7 @@
 import { createApp, ref, computed } from "./vue.esm-browser.js";
 import Book from "./components/book.js";
-import Styl from "./components/styl.js";
-import Editable from "./components/editable.js";
+import Styl from "./utils/styl.js";
+import Editable from "./utils/editable.js/index.js";
 
 const app = createApp({});
 

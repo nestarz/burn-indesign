@@ -1,6 +1,6 @@
 import { h } from "../vue.esm-browser.js";
 import Page from "./page.js";
-import Styl from "./styl.js";
+import Styl from "../utils/styl.js";
 
 const style = ({ columns, pageViewHeight }) => `
 @media screen {
