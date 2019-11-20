@@ -1,4 +1,4 @@
-import { createApp, ref, computed } from "./vue.esm-browser.js";
+import { createApp, ref, computed, watch } from "./vue.esm-browser.js";
 import Book from "./components/book.js";
 import Styl from "./utils/styl.js";
 import Editable from "./utils/editable.js";
@@ -25,9 +25,9 @@ const index = {
   </template>
 </book>
 
-<styl :inner="\`
+<style>
 .book {
-  height: 100vh;
+  min-height: 100vh;
   grid-gap: 1rem;
 }
 .page {
@@ -44,7 +44,7 @@ mark {
   transform: scale(2, 1.5) rotate(180deg);
   writing-mode: vertical-lr;
 }
-\`"></styl>
+</style>
     `);
     return {
       bookHtml,

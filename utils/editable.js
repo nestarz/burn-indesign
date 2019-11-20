@@ -1,16 +1,49 @@
-import { computed, ref, h, onMounted } from "../vue.esm-browser.js";
+import { computed, ref, h, onMounted, mergeProps } from "../vue.esm-browser.js";
 import "https://unpkg.com/prismjs";
 import { cssLoader } from "./styl.js";
-cssLoader(
-  "https://cdn.jsdelivr.net/npm/prism-themes/themes/prism-synthwave84.css"
-);
+import Styl from "./styl.js";
+cssLoader("https://cdn.jsdelivr.net/npm/prism-themes/themes/prism-vs.css");
+
+const style = `
+.vue-editable {
+  padding: 1rem;
+}
+
+.vue-editable > div {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+.vue-editable > div > pre:first-child {
+  position: absolute;
+  pointer-events: none;
+  inset: 0;
+  margin: 0;
+  background: none;
+  padding: inherit;
+  border: 0;
+}
+
+.vue-editable > div > pre:last-child {
+  opacity: 1;
+  margin: 0;
+  height: 100%;
+  width: 100%;
+  background: none;
+  outline: none;
+  padding: 0;
+  border: 0;
+}
+`;
 
 export default {
   props: {
     lang: { type: String, default: "js" },
     content: { type: String, default: "your code..." }
   },
-  setup(props, { emit }) {
+  inheritAttrs: false,
+  setup(props, { emit, attrs }) {
     const element = ref();
     const content = ref(props.content);
     const highlighted = computed(() =>
@@ -27,53 +60,29 @@ export default {
         );
       })
     );
-    return () =>
+    console.log(attrs);
+    return () => [
+      h(Styl, { inner: style }),
       h(
         "div",
-        {
-          ref: element,
-          style: {
-            position: "relative",
-            display: "flex",
-            "flex-direction": "column",
-            padding: "1rem"
-          }
-        },
-        [
-          h("pre", {
-            class: "language-",
-            style: {
-              position: "absolute",
-              "pointer-events": "none",
-              inset: 0,
-              margin: 0,
-              background: "none",
-              padding: "inherit"
-            },
-            domProps: { innerHTML: highlighted.value }
-          }),
+        mergeProps(
+          { ref: element, class: "vue-editable" },
+          { class: attrs.class }
+        ),
+        h("div", { "onUpdate:content": attrs["onUpdate:content"] }, [
+          h("pre", { class: "language-", innerHTML: highlighted.value }),
           h(
             "pre",
             {
               ref: "element",
               class: "language-",
-              style: {
-                opacity: 1,
-                margin: 0,
-                height: "100%",
-                width: "100%",
-                background: "none",
-                outline: "none",
-                padding: 0
-              },
               contenteditable: true,
-              on: {
-                input: event => emit("update:content", event.target.innerText)
-              }
+              onInput: event => emit("update:content", event.target.innerText)
             },
             content.value
           )
-        ]
-      );
+        ])
+      )
+    ];
   }
 };

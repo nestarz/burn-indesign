@@ -3,7 +3,7 @@
   <head></head>
   <body>
     <div id="app">
-      <editable :content.sync="bookHtml" lang="html" class="edit"></editable>
+      <editable v-model:content="bookHtml" lang="html" class="edit"></editable>
       <component :is="bookFactory" class="render"></component>
     </div>
   </body>
@@ -18,9 +18,14 @@
     body {
       height: 100%;
     }
+    #app {
+      display: grid;
+      grid-template-columns: 1fr 2fr;
+    }
     .edit {
-      position: absolute !important;
-      z-index: 1;
+      position: sticky;
+      top: 0;
+      align-self: flex-start
     }
   </style>
 </html>
