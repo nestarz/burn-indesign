@@ -3,29 +3,50 @@
   <head></head>
   <body>
     <div id="app">
-      <editable v-model:content="bookHtml" lang="html" class="edit"></editable>
+      <div class="edit">
+        <pre v-html="wrappers.html.top.open"></pre>
+        <editable v-model:content="config" lang="js"></editable>
+        <pre v-html="wrappers.html.top.close"></pre>
+        <editable v-model:content="html" lang="html"></editable>
+        <pre v-html="wrappers.html.bottom"></pre>
+        <pre v-html="wrappers.css.top"></pre>
+        <editable v-model:content="css" lang="css"></editable>
+        <pre v-html="wrappers.css.bottom"></pre>
+      </div>
       <component :is="bookFactory" class="render"></component>
     </div>
   </body>
   <script src="index.js" type="module"></script>
   <style>
-    html,
-    body {
-      min-height: 100%;
-      margin: 0;
-      background: white;
+    @media screen {
+      html,
+      body {
+        min-height: 100%;
+        margin: 0;
+        background: white;
+      }
+      body {
+        height: 100%;
+      }
+      #app {
+        display: grid;
+        grid-template-columns: 1fr 2fr;
+      }
+      .edit {
+        position: sticky;
+        top: 0;
+        align-self: flex-start;
+        padding: 1rem;
+      }
+      .vue-editable {
+        margin-left: 1rem;
+      }
     }
-    body {
-      height: 100%;
-    }
-    #app {
-      display: grid;
-      grid-template-columns: 1fr 2fr;
-    }
-    .edit {
-      position: sticky;
-      top: 0;
-      align-self: flex-start
+
+    @media print {
+      .edit {
+        display: none;
+      }
     }
   </style>
 </html>

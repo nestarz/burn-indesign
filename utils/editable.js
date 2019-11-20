@@ -2,11 +2,10 @@ import { computed, ref, h, onMounted, mergeProps } from "../vue.esm-browser.js";
 import "https://unpkg.com/prismjs";
 import { cssLoader } from "./styl.js";
 import Styl from "./styl.js";
-cssLoader("https://cdn.jsdelivr.net/npm/prism-themes/themes/prism-vs.css");
+cssLoader("./utils/editable.css");
 
 const style = `
 .vue-editable {
-  padding: 1rem;
 }
 
 .vue-editable > div {
@@ -62,7 +61,7 @@ export default {
     );
     console.log(attrs);
     return () => [
-      h(Styl, { inner: style }),
+      h(Styl, { inner: style, id: 'vue-editable' }),
       h(
         "div",
         mergeProps(

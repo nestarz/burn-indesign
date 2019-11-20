@@ -17,15 +17,25 @@ const style = ({ columns, pageViewHeight }) => `
 export default {
   props: {
     pageViewHeight: { type: String, default: "100vh" },
-    columns: { type: Number, default: 1 }
+    columns: { type: Number, default: 1 },
+    margin: { type: Number, default: 0 },
+    width: { type: Number, default: 210 },
+    height: { type: Number, default: 297 },
+    landscape: { type: Boolean, default: false }
   },
   setup(props, { slots }) {
     return () => {
+      const { columns, pageViewHeight, ...pageProps } = props;
       const test = ([name, _]) => /^[0-9].*$/.test(name);
       const pages = Object.entries(slots)
         .filter(test)
-        .map(([name, slot]) => h(Page, { class: "page page-" + name }, slot));
-      return [h(Styl, { inner: style(props) }), h("div", { class: "book" }, pages)];
+        .map(([name, slot]) =>
+          h(Page, { class: "page page-" + name, ...pageProps }, slot)
+        );
+      return [
+        h(Styl, { inner: style({ columns, pageViewHeight }) }),
+        h("div", { class: "book" }, pages)
+      ];
     };
   }
 };

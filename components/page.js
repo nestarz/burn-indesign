@@ -20,8 +20,8 @@ const style = ({ landscape, height, width, margin }) => `
 }
 
 @page {
-  size: ${landscape ? width : height} ${landscape ? height : width};
-  margin: ${margin};
+  size: ${landscape ? width : height}mm ${landscape ? height : width}mm;
+  margin: ${margin}mm;
 }
 
 @media print {
@@ -36,16 +36,16 @@ const style = ({ landscape, height, width, margin }) => `
 }
 
 .vue-page > .wrapper > .content {
-  width: ${landscape ? height : width};
-  height: ${landscape ? width : height};
+  width: ${landscape ? height : width}mm;
+  height: ${landscape ? width : height}mm;
 }
 `;
 
 export default {
   props: {
-    margin: { type: Number, default: "0mm" },
-    width: { type: Number, default: "210mm" },
-    height: { type: Number, default: "297mm" },
+    margin: { type: Number, default: 0 },
+    width: { type: Number, default: 210 },
+    height: { type: Number, default: 297 },
     landscape: { type: Boolean, default: false }
   },
   inheritAttrs: false,
