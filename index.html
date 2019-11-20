@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+  <head></head>
+  <body>
+    <div id="app">
+      <editable :content.sync="bookHtml" lang="html" class="edit"></editable>
+      <component :is="bookFactory" class="render"></component>
+    </div>
+  </body>
+  <script src="index.js" type="module"></script>
+  <style>
+    html,
+    body {
+      min-height: 100%;
+      margin: 0;
+      background: white;
+    }
+    body {
+      height: 100%;
+    }
+    .edit {
+      position: absolute !important;
+      z-index: 1;
+    }
+  </style>
+</html>
