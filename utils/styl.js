@@ -1,7 +1,4 @@
-import { watch, ref, h, onUnmounted } from "../vue.esm-browser.js";
-
-const all = {};
-const ids = {};
+import { h, onBeforeUnmount } from "../vue.esm-browser.js";
 
 export const cssLoader = function(url) {
   return new Promise((resolve, reject) => {
@@ -19,10 +16,14 @@ export const cssLoader = function(url) {
   });
 };
 
+const all = {};
+const ids = {};
+
 export default {
   name: "styl",
   props: { inner: String, id: String },
   setup(props) {
+    console.log("ok1");
     const me = Math.random();
     if (props.id) {
       all[props.id] = [...(all[props.id] || []), me];
@@ -30,27 +31,17 @@ export default {
         ids[props.id] = me;
       }
     }
-    onUnmounted(() => {
+    onBeforeUnmount(() => {
+      console.log("ok2")
       if (props.id) {
         all[props.id] = all[props.id].filter(id => id === me);
-      }
-    });
-    const span = ref();
-    watch(
-      () => props,
-      () => {
-        if (span.value) {
-          const styl = document.createElement("style");
-          const node = document.createTextNode(props.inner);
-          styl.append(node);
-          span.value.replaceWith(styl);
+        if (all[props.id].length === 1) {
+          ids[props.id] = me;
         }
       }
-    );
+    });
     return () => {
-      return !props.id || me === ids[props.id]
-        ? h("span", { ref: span })
-        : null;
+      return !props.id || me === ids[props.id] ? h("style", props.inner) : null;
     };
   }
 };

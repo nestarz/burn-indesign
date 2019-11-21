@@ -10,12 +10,13 @@ const style = ({ landscape, height, width, margin }) => `
   }
 
   .vue-page > .wrapper > .content {
-    border: 1px solid grey;
     transform-origin: left top;
   }
   
   .vue-page > .wrapper {
     overflow: hidden;
+    border: 1px solid grey;
+    padding: ${margin}mm;
   }
 }
 

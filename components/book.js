@@ -33,7 +33,7 @@ export default {
           h(Page, { class: "page page-" + name, ...pageProps }, slot)
         );
       return [
-        h(Styl, { inner: style({ columns, pageViewHeight }) }),
+        h(Styl, { inner: style({ columns, pageViewHeight }), key: 'book' }),
         h("div", { class: "book" }, pages)
       ];
     };

@@ -1,5 +1,5 @@
 import { computed, ref, h, onMounted, mergeProps } from "../vue.esm-browser.js";
-import "https://unpkg.com/prismjs";
+import "./prism.js";
 import { cssLoader } from "./styl.js";
 import Styl from "./styl.js";
 cssLoader("./utils/editable.css");
