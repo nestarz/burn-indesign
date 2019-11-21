@@ -29,16 +29,12 @@ const index = {
   justify-content: center;
   align-items: center;
   font-family: serif;
-  background-size: 40px 40px;
-  background-image: radial-gradient(circle, red 1px, rgba(0, 0, 0, 0) 1px); 
+  background: black;
 }
 
 .page-1,
 .page-3 {
-  background-size: 40px 40px;
-  background-image:
-    linear-gradient(to right, hsl(1, 0%, 100%) 1px, transparent 1px),
-    linear-gradient(to bottom, grey 1px, transparent 1px);
+  background: white;
 }
 
 mark {
