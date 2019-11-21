@@ -12,6 +12,7 @@
         <pre v-html="wrappers.css.top"></pre>
         <editable v-model:content="css" lang="css"></editable>
         <pre v-html="wrappers.css.bottom"></pre>
+        <button @click="print">Print This Book</button>
       </div>
       <component :is="bookFactory" class="render"></component>
     </div>
@@ -40,6 +41,9 @@
       }
       .vue-editable {
         margin-left: 1rem;
+      }
+      .edit button {
+        margin-top: 1rem;
       }
     }
 

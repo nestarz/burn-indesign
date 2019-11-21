@@ -56,6 +56,7 @@ ${css.value}
       Prism.languages["html"]
     ));
     return {
+      print: () => window.print(),
       html,
       css,
       config,
