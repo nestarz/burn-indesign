@@ -2,6 +2,7 @@ import { createApp, ref, computed, watch } from "./vue.esm-browser.js";
 import Book from "./components/book.js";
 import Styl from "./utils/styl.js";
 import Editable from "./utils/editable.js";
+import Markdown from "./utils/markdown.js";
 
 const app = createApp({});
 
@@ -85,7 +86,7 @@ const index = {
       css,
       config,
       bookFactory: computed(() => ({
-        components: { Book, Styl },
+        components: { Book, Styl, Markdown },
         template: htmlcss.value
       })),
       wrappers: WRAPPERS,
