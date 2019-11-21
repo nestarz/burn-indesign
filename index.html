@@ -13,6 +13,7 @@
         <editable v-model:content="css" lang="css"></editable>
         <pre v-html="wrappers.css.bottom"></pre>
         <button @click="print">Print This Book</button>
+        <a href="https://github.com/nestarz/burn-indesign">Github</a>
       </div>
       <component :is="bookFactory" class="render"></component>
     </div>
@@ -42,7 +43,9 @@
       .vue-editable {
         margin-left: 1rem;
       }
-      .edit button {
+      .edit > button,
+      .edit > a {
+        display: block;
         margin-top: 1rem;
       }
     }
