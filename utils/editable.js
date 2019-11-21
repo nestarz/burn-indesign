@@ -19,6 +19,7 @@ const style = `
   background: none;
   padding: inherit;
   border: 0;
+  white-space: pre-wrap;
 }
 
 .vue-editable > div > pre:last-child {
@@ -30,6 +31,7 @@ const style = `
   outline: none;
   padding: 0;
   border: 0;
+  white-space: pre-wrap;
 }
 `;
 
@@ -55,7 +57,7 @@ export default {
       element.value.addEventListener("keydown", e => {
         if (e.keyCode == 9) {
           e.preventDefault();
-          document.execCommand("insertHTML", false, "&nbsp;&nbsp;");
+          document.execCommand("insertHTML", false, " ");
         }
       });
     });
