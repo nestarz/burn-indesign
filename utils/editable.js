@@ -59,7 +59,7 @@ export default {
         );
       })
     );
-    console.log(attrs);
+
     return () => [
       h(Styl, { inner: style, id: 'vue-editable' }),
       h(

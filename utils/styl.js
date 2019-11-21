@@ -7,7 +7,6 @@ export const cssLoader = function(url) {
     link.rel = "stylesheet";
     link.onload = function() {
       resolve();
-      console.log("style has loaded");
     };
     link.href = url;
 
@@ -23,7 +22,6 @@ export default {
   name: "styl",
   props: { inner: String, id: String },
   setup(props) {
-    console.log("ok1");
     const me = Math.random();
     if (props.id) {
       all[props.id] = [...(all[props.id] || []), me];
@@ -32,7 +30,6 @@ export default {
       }
     }
     onBeforeUnmount(() => {
-      console.log("ok2")
       if (props.id) {
         all[props.id] = all[props.id].filter(id => id === me);
         if (all[props.id].length === 1) {

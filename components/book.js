@@ -23,7 +23,8 @@ export default {
     height: { type: Number, default: 297 },
     landscape: { type: Boolean, default: false }
   },
-  setup(props, { slots }) {
+  inheritAttrs: false,
+  setup(props, { slots, attrs }) {
     return () => {
       const { columns, pageViewHeight, ...pageProps } = props;
       const test = ([name, _]) => /^[0-9].*$/.test(name);
@@ -34,7 +35,7 @@ export default {
         );
       return [
         h(Styl, { inner: style({ columns, pageViewHeight }), key: 'book' }),
-        h("div", { class: "book" }, pages)
+        h("div", { class: "vue-book " + attrs.class }, pages)
       ];
     };
   }
