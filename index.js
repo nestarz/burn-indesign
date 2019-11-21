@@ -8,7 +8,7 @@ const app = createApp({});
 const index = {
   components: { Editable },
   setup() {
-    const config = ref(':columns="1" :height="297" :width="210"');
+    const config = ref(':columns="1" :margin="0" :height="297" :width="210"');
     const html = ref(`<template #1>
   <mark>Burn Adobe</mark>
   <mark>Indedign Edition</mark>
@@ -23,24 +23,28 @@ const index = {
   <mark>Fork it</mark>
 </template>`);
     const css = ref(`.page {
-  background: hsl(1, 0%, 90%);
   color: white;
   font-size: .3in;
   display: flex;
   justify-content: center;
   align-items: center;
   font-family: serif;
+  background-size: 40px 40px;
+  background-image: radial-gradient(circle, red 1px, rgba(0, 0, 0, 0) 1px); 
 }
 
 .page-1,
 .page-3 {
-  background: black;
+  background-size: 40px 40px;
+  background-image:
+    linear-gradient(to right, hsl(1, 0%, 100%) 1px, transparent 1px),
+    linear-gradient(to bottom, grey 1px, transparent 1px);
 }
 
 mark {
   transform: scale(3.5, 4) rotate(200deg);
   writing-mode: vertical-lr;
-  margin: 5mm;
+  margin: 4mm;
 }`);
     const htmlcss = computed(() => {
       return `<book class="book" ${config.value}>
