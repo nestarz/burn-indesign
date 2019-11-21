@@ -48,7 +48,7 @@ export default {
     const highlighted = computed(() =>
       Prism.highlight(props.content, Prism.languages[props.lang])
     );
-    onMounted(() =>
+    onMounted(() => {
       element.value.addEventListener("paste", e => {
         e.preventDefault();
         const text = (e.originalEvent || e).clipboardData.getData("text/plain");
@@ -57,11 +57,17 @@ export default {
           false,
           text.replace("/\x0D/g", "\\n")
         );
-      })
-    );
+      });
+      element.value.addEventListener("keydown", e => {
+        if (e.keyCode == 9) {
+          document.execCommand("insertHTML", false, "&nbsp;&nbsp;");
+          e.preventDefault();
+        }
+      });
+    });
 
     return () => [
-      h(Styl, { inner: style, id: 'vue-editable' }),
+      h(Styl, { inner: style, id: "vue-editable" }),
       h(
         "div",
         mergeProps(
