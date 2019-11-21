@@ -5,9 +5,6 @@ import Styl from "./styl.js";
 cssLoader("./utils/editable.css");
 
 const style = `
-.vue-editable {
-}
-
 .vue-editable > div {
   position: relative;
   display: flex;
@@ -51,17 +48,14 @@ export default {
     onMounted(() => {
       element.value.addEventListener("paste", e => {
         e.preventDefault();
-        const text = (e.originalEvent || e).clipboardData.getData("text/plain");
-        window.document.execCommand(
-          "insertHTML",
-          false,
-          text.replace("/\x0D/g", "\\n")
-        );
+        e.stopPropagation();
+        const plaintext = e.clipboardData.getData("text/plain");
+        document.execCommand("inserttext", false, plaintext);
       });
       element.value.addEventListener("keydown", e => {
         if (e.keyCode == 9) {
-          document.execCommand("insertHTML", false, "&nbsp;&nbsp;");
           e.preventDefault();
+          document.execCommand("insertHTML", false, "&nbsp;&nbsp;");
         }
       });
     });
@@ -75,12 +69,11 @@ export default {
           { class: attrs.class }
         ),
         h("div", { "onUpdate:content": attrs["onUpdate:content"] }, [
-          h("pre", { class: "language-", innerHTML: highlighted.value }),
+          h("pre", { innerHTML: highlighted.value }),
           h(
             "pre",
             {
               ref: "element",
-              class: "language-",
               contenteditable: true,
               onInput: event => emit("update:content", event.target.innerText)
             },
