@@ -8,8 +8,8 @@ const app = createApp({});
 const index = {
   components: { Editable },
   setup() {
-    const config = ref(':columns="1" :margin="0" :height="297" :width="210"');
-    const html = ref(`<template #1>
+    const config = ref(localStorage.getItem('config') || ':columns="1" :margin="0" :height="297" :width="210"');
+    const html = ref(localStorage.getItem('html') ||  `<template #1>
   <mark>Burn Adobe</mark>
   <mark>Indedign Edition</mark>
 </template>
@@ -22,7 +22,7 @@ const index = {
 <template #4>
   <mark>Fork it</mark>
 </template>`);
-    const css = ref(`.page {
+    const css = ref(localStorage.getItem('css') || `.page {
   color: white;
   font-size: .3in;
   display: flex;
@@ -44,19 +44,19 @@ mark {
 }`);
     const htmlcss = computed(() => {
       return `<book class="book" ${config.value}>
-  ${html.value}
+${html.value}
 </book>
 
-<style>
-${css.value}
-</style>`;
+<styl inner="${css.value}"></styl>`;
     });
-    console.log(Prism.highlight(
-      `<book class="book">`,
-      Prism.languages["html"]
-    ));
+    watch(htmlcss, () => {
+      localStorage.setItem("html", html.value);
+      localStorage.setItem("css", css.value);
+      localStorage.setItem("config", config.value);
+    });
     return {
       print: () => window.print(),
+      base64: computed(() => encodeURIComponent(htmlcss.value)),
       html,
       css,
       config,
@@ -66,7 +66,7 @@ ${css.value}
             open: Prism.highlight(
               `<book class="book">`,
               Prism.languages["html"]
-            ).replace('<span class="token punctuation">></span>', ''),
+            ).replace('<span class="token punctuation">></span>', ""),
             close: `<span class="token punctuation">></span>`
           },
           bottom: Prism.highlight(`</book>`, Prism.languages["html"])
