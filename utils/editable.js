@@ -36,7 +36,7 @@ const style = `
 export default {
   props: {
     lang: { type: String, default: "js" },
-    content: { type: String, default: "your code..." }
+    content: { type: String, default: "const author = 'Elias Rhouzlane'" }
   },
   inheritAttrs: false,
   setup(props, { emit, attrs }) {
