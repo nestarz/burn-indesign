@@ -35,6 +35,11 @@
         display: grid;
         grid-template-columns: 1fr 2fr;
       }
+      @media (orientation: portrait) {
+        #app {
+          grid-template-columns: 1fr;
+        }
+      }
       .edit {
         position: sticky;
         top: 0;
